@@ -76,13 +76,6 @@ docker run -p 8080:8080 \
   indonesian-address-api
 ```
 
-### 🌐 Deployed Application
-
-Live deployment:
-
-- **API**: https://miitest-1.herokuapp.com
-- **Swagger UI**: https://miitest-1.herokuapp.com/swagger-ui.html
-
 ### 📌 API Endpoint
 
 **POST** `/cekAlamat`
