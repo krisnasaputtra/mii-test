@@ -1,0 +1,45 @@
+Input = N (integer, for size square)
+Output = Display NxN square and combined all row square
+
+Example:
+Input = 3
+Output = 
+===
+| |
+===
+===| |===
+
+Start
+  /* Validasi input */
+  IF N < 3
+    PRINT "Nilai terlalu kecil"
+    RETURN
+  END IF
+
+  IF N > 9
+    PRINT "Nilai terlalu besar"
+    RETURN
+  END IF
+  
+  combined_square <- empty array []
+
+  FOR i <- 0 TO N-1 then
+    row_square <- empty array []
+    FOR j <- 0 TO N-1 THEN
+      IF i == 0 OR i == N-1 THEN
+        character <- "="
+      ELSE IF j == 0 OR j == N-1 THEN
+        character <- "|"
+      ELSE
+        character <- " "
+      END IF
+      
+      Add character to row_square
+    END FOR
+    row_combined <- join row_square with ""
+    PRINT row_combined
+    Add row_combined to combined_square
+  END FOR
+
+  PRINT join combined_square with ""
+END 

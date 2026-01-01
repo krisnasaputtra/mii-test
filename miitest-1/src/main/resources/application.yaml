@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: miitest-1
+
+server:
+  port: ${PORT:8082}
+
+indonesian-address:
+  api:
+    base-url: ${INDONESIAN_ADDRESS_API_URL:https://alamat.thecloudalert.com/api}
+
+logging:
+  level:
+    root: INFO
+    com.krisnasaputtra.projects.miitest_1: DEBUG
+    org.springframework.web.client: DEBUG
