@@ -1,4 +1,5 @@
 # MII Test – Technical Solutions
+#### Nama: Krisna Saputra
 
 This repository contains solutions for two technical test questions:
 
