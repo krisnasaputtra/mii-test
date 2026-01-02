@@ -15,7 +15,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-/** REST endpoint for validating Indonesian addresses against provinces and cities. */
+/**
+ * REST endpoint for validating Indonesian addresses against provinces and
+ * cities.
+ */
 @RestController
 @RequiredArgsConstructor
 @Tag(name = "Indonesian Address API")

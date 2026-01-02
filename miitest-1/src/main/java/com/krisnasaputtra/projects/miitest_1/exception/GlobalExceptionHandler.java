@@ -12,21 +12,26 @@ import com.krisnasaputtra.projects.miitest_1.dto.response.ApiResponse;
 
 import lombok.extern.slf4j.Slf4j;
 
-/** Global exception handler for consistent error responses across the application. */
+/**
+ * Global exception handler for consistent error responses across the
+ * application.
+ */
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
 
-        /** Handles external API errors: 4xx as BAD_GATEWAY, 5xx as SERVICE_UNAVAILABLE. */
+        /**
+         * Handles external API errors: 4xx as BAD_GATEWAY, 5xx as SERVICE_UNAVAILABLE.
+         */
         @ExceptionHandler(ExternalApiException.class)
         public ResponseEntity<ApiResponse> handleExternalApiException(
                         ExternalApiException ex) {
                 log.error("External API error occurred", ex);
 
                 String message = ex.getMessage();
-                HttpStatus status = message.contains("Client error") 
-                        ? HttpStatus.BAD_GATEWAY 
-                        : HttpStatus.SERVICE_UNAVAILABLE;
+                HttpStatus status = message.contains("Client error")
+                                ? HttpStatus.BAD_GATEWAY
+                                : HttpStatus.SERVICE_UNAVAILABLE;
 
                 ApiResponse response = ApiResponse.builder()
                                 .code("0")
@@ -73,6 +78,22 @@ public class GlobalExceptionHandler {
 
                 return ResponseEntity
                                 .status(HttpStatus.BAD_REQUEST)
+                                .body(response);
+        }
+
+        /** Handles resource not found errors for invalid data values. */
+        @ExceptionHandler(ResourceNotFoundException.class)
+        public ResponseEntity<ApiResponse> handleResourceNotFound(
+                        ResourceNotFoundException ex) {
+                log.warn("Resource not found: {}", ex.getMessage());
+
+                ApiResponse response = ApiResponse.builder()
+                                .code("0")
+                                .message(ex.getMessage())
+                                .build();
+
+                return ResponseEntity
+                                .status(HttpStatus.NOT_FOUND)
                                 .body(response);
         }
 

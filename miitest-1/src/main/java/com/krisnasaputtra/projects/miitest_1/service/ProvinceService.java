@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.krisnasaputtra.projects.miitest_1.client.IndonesiaAddressClient;
+import com.krisnasaputtra.projects.miitest_1.exception.ResourceNotFoundException;
 import com.krisnasaputtra.projects.miitest_1.model.Province;
 
 import jakarta.annotation.Nonnull;
@@ -20,12 +21,12 @@ public class ProvinceService {
     return client.getAllProvinces();
   }
 
-  public Province getProvinceById(@Nonnull String provinceName) {
+  public Province getProvinceByName(@Nonnull String provinceName) {
     List<Province> provinces = client.getAllProvinces();
 
     return provinces.stream()
         .filter(p -> p.getText().equalsIgnoreCase(provinceName))
         .findFirst()
-        .orElseThrow(() -> new IllegalArgumentException("Province not found"));
+        .orElseThrow(() -> new ResourceNotFoundException("Province not found"));
   }
 }

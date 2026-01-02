@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.krisnasaputtra.projects.miitest_1.client.IndonesiaAddressClient;
+import com.krisnasaputtra.projects.miitest_1.exception.ResourceNotFoundException;
 import com.krisnasaputtra.projects.miitest_1.model.City;
 
 import lombok.NonNull;
@@ -23,15 +24,20 @@ public class CityService {
     return client.getCities(provinceId);
   }
 
-  public Optional<City> getCityByNameCity(@NonNull String provinceId, @NonNull String cityName) {
+  public City getCityByName(@NonNull String provinceId, @NonNull String cityName) {
     List<City> cities = client.getCities(provinceId);
 
-    Optional<City> city = cities.stream()
+    return cities.stream()
         .filter(c -> c.getText().equalsIgnoreCase(cityName))
-        .findFirst();
-
-    log.info("City: {}", city);
-
-    return city;
+        .findFirst()
+        .orElseThrow(() -> new ResourceNotFoundException("City not found"));
   }
+
+  public boolean isCityExist(@NonNull String provinceId, @NonNull String cityName) {
+    List<City> cities = client.getCities(provinceId);
+
+    return cities.stream()
+        .anyMatch(c -> c.getText().equalsIgnoreCase(cityName));
+  }
+
 }

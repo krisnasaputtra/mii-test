@@ -20,10 +20,8 @@ public class IndonesianAddressService {
   private final CityService cityService;
 
   public boolean checkAddress(CheckAddressRequest request) {
-    Province province = provinceService.getProvinceById(request.getProvinsi());
+    Province province = provinceService.getProvinceByName(request.getProvinsi());
 
-    Optional<City> city = cityService.getCityByNameCity(province.getId(), request.getKabkota());
-
-    return city.isPresent();
+    return cityService.isCityExist(province.getId(), request.getKabkota());
   }
 }
